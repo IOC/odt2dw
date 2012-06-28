@@ -360,7 +360,8 @@ class action_plugin_odt2dw extends DokuWiki_Action_Plugin {
         if ( ! page_exists($this->pageName) ) return $this->_msg('er_apply_content');
         // Import the image file in the mediaManager (data/media)
         $destDir = mediaFN( $this->nsName );
-        if ( ! ( file_exists( $destDir ) || mkdir( $destDir ) ) ) return $this->_msg( array( 'er_apply_dirCreate' ) );
+
+        if ( ! ( file_exists( $destDir ) || mkdir( $destDir, 0755, true ) ) ) return $this->_msg( array( 'er_apply_dirCreate' ) );
         if ( $this->file_import ) foreach ( $this->file_import as $pict ) {
             $destFile = mediaFN( $this->nsName.':'.$pict );
             list( $ext, $mime ) = mimetype( $this->uploadDir.'/Pictures/'.$pict );
