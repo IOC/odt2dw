@@ -391,7 +391,8 @@ class action_plugin_odt2dw extends DokuWiki_Action_Plugin {
                 $ext  = $value[2];
                 $other = $value[3];
                 if ( $this->_unzip('Pictures/'.$pict) ) {
-                    $newname = noNS($this->pageName).'_Image_'.$key.$ext;
+                    preg_match('/^(\w+:)+(\w+):\w+$/', getID(), $matches);
+                    $newname = (isset($matches[2])?$matches[2]:'').'_'.noNS($this->pageName).'_Image_'.$key.$ext;
                     if ( rename( $this->uploadDir.'/Pictures/'.$pict, $this->uploadDir.'/Pictures/'.$newname ) ) {
                         $this->result = str_replace( '{{'.$pict.$other.'}}' , '{{'.$newname.$other.'}}' , $this->result );
                         $this->file_import[] = $newname;
