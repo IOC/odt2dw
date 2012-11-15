@@ -591,13 +591,11 @@ Source :
   </xsl:template>
 
   <!-- Code -->
-<!--   <xsl:template match="//text:p[@text:style-name='Codi_5f_bloc']">
+<!--   <xsl:template match="//text:span[@text:style-name='Codi_5f_linia']">
     <xsl:if test="current() != ''">
-      <xsl:text>&lt;code&gt;</xsl:text>
-      <xsl:value-of select="$newline"/>
+      <xsl:text>''</xsl:text>
       <xsl:apply-templates/>
-      <xsl:value-of select="$newline"/>
-      <xsl:text>&lt;/code&gt;</xsl:text>
+      <xsl:text>''</xsl:text>
     </xsl:if>
   </xsl:template> -->
   <xsl:template match="//text:p[@text:style-name='Codi_5f_bloc']">
@@ -646,6 +644,7 @@ Source :
     <xsl:variable name="italic"><xsl:if test="//office:automatic-styles/style:style[@style:name=$style]/style:text-properties/@fo:font-style = 'italic'">//</xsl:if></xsl:variable>
     <xsl:variable name="bold"><xsl:if test="//office:automatic-styles/style:style[@style:name=$style]/style:text-properties/@fo:font-weight = 'bold'">**</xsl:if></xsl:variable>
     <xsl:variable name="underline"><xsl:if test="//office:automatic-styles/style:style[@style:name=$style]/style:text-properties/@style:text-underline-style = 'solid'">__</xsl:if></xsl:variable>
+    <xsl:variable name="codi_linia"><xsl:if test="$style='Codi_5f_linia'">''</xsl:if></xsl:variable>
     <xsl:variable name="centre"><xsl:if test="//office:automatic-styles/style:style[@style:name=$style]/style:text-properties/@fo:text-align">&lt;WRAP centeralign&gt;</xsl:if></xsl:variable>
     <xsl:variable name="indice"><xsl:if test="contains(//office:automatic-styles/style:style[@style:name=$style]/style:text-properties/@style:text-position,'sub')">&lt;sub&gt;</xsl:if></xsl:variable>
     <xsl:variable name="exposant"><xsl:if test="contains(//office:automatic-styles/style:style[@style:name=$style]/style:text-properties/@style:text-position,'sup')">&lt;sup&gt;</xsl:if></xsl:variable>
@@ -655,12 +654,12 @@ Source :
     <xsl:if test="$text!='' or count(*) &gt; 0">
       <!-- Application des mises en formes -->
       <!-- Ouverture -->
-      <xsl:value-of select="$italic"/><xsl:value-of select="$bold"/><xsl:value-of select="$underline"/><xsl:value-of select="$centre"/><xsl:value-of select="$indice"/><xsl:value-of select="$exposant"/><xsl:value-of select="$barre"/>
+      <xsl:value-of select="$italic"/><xsl:value-of select="$bold"/><xsl:value-of select="$underline"/><xsl:value-of select="$codi_linia"/><xsl:value-of select="$centre"/><xsl:value-of select="$indice"/><xsl:value-of select="$exposant"/><xsl:value-of select="$barre"/>
 
       <xsl:apply-templates/>
 
       <!-- Fermeture -->
-      <xsl:if test="$barre!=''">&lt;/del&gt;</xsl:if><xsl:if test="$exposant!=''">&lt;/sup&gt;</xsl:if><xsl:if test="$indice!=''">&lt;/sub&gt;</xsl:if><xsl:if test="$centre!=''">&lt;/WRAP&gt;</xsl:if><xsl:value-of select="$underline"/><xsl:value-of select="$bold"/><xsl:value-of select="$italic"/>
+      <xsl:if test="$barre!=''">&lt;/del&gt;</xsl:if><xsl:if test="$exposant!=''">&lt;/sup&gt;</xsl:if><xsl:if test="$indice!=''">&lt;/sub&gt;</xsl:if><xsl:if test="$centre!=''">&lt;/WRAP&gt;</xsl:if><xsl:value-of select="$codi_linia"/><xsl:value-of select="$underline"/><xsl:value-of select="$bold"/><xsl:value-of select="$italic"/>
       <!-- Fin application des mises en formes -->
     </xsl:if>
   </xsl:template>
